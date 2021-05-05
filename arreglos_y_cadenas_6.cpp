@@ -1,6 +1,10 @@
+//Link del repositorio: https://github.com/MoisesCA-73/Arreglos-y-cadenas
+
 #include <iostream>
 
 using namespace std;
+
+string palabras[30] = {"hola","pero","poder","como","sobre","ahora","despues","antes","estar","ser","cadenas","abrazo","cada","todos","mundo","gran","pais","segun"."aunque","hasta","vida","decir","tambien","tanto","tres","gobierno","durante","cuando","donde", "como","amigos"};
 
 //Merge Sort
 
@@ -97,12 +101,12 @@ int* merge_sort(int *arr, int &n)
 
 }
 
-void sort_string(string &str, int n)
+void sort_string(string* str, int n)
 {
     int *arr = new int [n];
     for (int i = 0; i < n; i++)
     {
-        arr[i] = str[i] - '0';
+        arr[i] = str[i][0] - '0';
     }
     arr = merge_sort(arr,n);
     for (int i = 0; i < n; i++)
@@ -111,12 +115,24 @@ void sort_string(string &str, int n)
     }
 }
 
+void asignar_randoms(string *arr, const int n)
+{
+    srand(time(NULL));
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = palabra[rand() % 30];
+
+    }
+}
+
 int main()
 {
-    string cadena {"esteesuntextodeejemploqueseraordenadolexicograficamente"};
+    int n;
+    cin >> n;
+    string* cadenas = new string[n]; 
 
     cout << "La cadena original es: " << cadena << endl;
-    sort_string(cadena,55);
+    sort_strings(cadena,n);
     cout << "La cadena ordenada lexicograficamente es: " << cadena << endl;
 
     return 0;
