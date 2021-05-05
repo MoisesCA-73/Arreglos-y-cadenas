@@ -1,3 +1,5 @@
+//Link del repositorio: https://github.com/MoisesCA-73/Arreglos-y-cadenas
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -14,15 +16,26 @@ int sum_itr(int *arr, int n)
     }
     return sum;
 }
+
 //suma de un arreglo de forma recursiva
 int sum_rec(int *arr, int n)
 {
-    if (n == 1)
+    if(n == 1)  //cuando el tamano sea 1, ese valor unico sera la suma total
     {
         return arr[0];
     }
-    return arr[n-1] + sum_rec(arr,n-1);
-}
+    int* new_arr = new int [n/2];
+    for (int i = 0; i < n-1; i+=2)
+    {
+        new_arr[i/2] = arr[i] + arr[i+1]; 
+    }
+    if (n%2 != 0)
+    {
+        new_arr[n/2 - 1] += arr[n-1];
+    }
+    return sum_rec(new_arr,n/2);
+}    
+
 
 //Asigna valores aleatorios al arreglo de 1 a 1000
 void asignar_randoms(int *arr, const int n)
@@ -56,7 +69,7 @@ int main()
     asignar_randoms(array,n);
 
 
-    //Se puede comentar estos paso si es que el tamano del arreglo es muy largo(1000000), con el proposito de no imprimir un monton de numeros
+    //Se puede comentar estos pasos si el tamano del arreglo es muy largo (1000000), con el proposito de no imprimir un monton de numeros y sobrecargar la terminal
     cout << "ARREGLO:\n";
     print_array(array,n);
 
