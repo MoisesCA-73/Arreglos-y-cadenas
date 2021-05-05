@@ -1,3 +1,5 @@
+//Link del repositorio: https://github.com/MoisesCA-73/Arreglos-y-cadenas
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -16,25 +18,25 @@ int* add(int *arr, int x, int &n)
     }
     aux[n] = x;
     n++;
+    delete [] arr;
     return aux;
+    delete [] aux;
 }
 
 //matriz con el primer elemento eliminado
 
-int* remove(int *arr, int &n)
+void remove(int *arr, int &n)
 {
-    int* aux = new int[n-1];
-    for (int  i = 0; i < n-1; i++)
+    for (int  i = 0; i < n; i++)
     {
-        aux[i] = arr[i+1];
+        arr[i] = arr[i+1];
     }
     n--;
-    return aux;
 }
 
 int* merge(int *arr1, int n1, int *arr2, int n2)
 {
-    int n3 = 0;
+    int n3 {0};
     int* arr3 = new int [n3];
     //hasta que algun array se quede sin elementos
     while(n1 > 0 && n2 > 0)
@@ -42,30 +44,30 @@ int* merge(int *arr1, int n1, int *arr2, int n2)
         if(arr1[0] > arr2[0])
         {
             arr3 = add(arr3,arr2[0],n3);
-            arr2 = remove(arr2,n2);
+            remove(arr2,n2);
         }
         else
         {
             arr3 = add(arr3,arr1[0],n3);
-            arr1 = remove(arr1,n1);
+            remove(arr1,n1);
         }
     }
     //a este punto un arreglo ya esta vacio asi que se anaden los demas
     while(n1 > 0)
     {
         arr3 = add(arr3,arr1[0],n3);
-        arr1 = remove(arr1,n1);
+        remove(arr1,n1);
     }
     while(n2 > 0)
     {
         arr3 = add(arr3,arr2[0],n3);
-        arr2 = remove(arr2,n2);
+        remove(arr2,n2);
     }
 
     return arr3;
 }
 
-int* merge_sort(int *arr, int &n)
+int* merge_sort(int *arr, const int n)
 {
     if(n == 1)
     {
@@ -124,17 +126,20 @@ int main()
     int m;
     cout << "Digite el numero de elementos del arreglo: ";
     cin >> m;
-    int n {m};
+    const int n {m};
 
     int *array {new int [n]};
     asignar_randoms(array,n);
 
     cout << "Arreglo:\n";
-    print_array(array,n);
+    cout << array[0] << '\n' << n;
+    //print_array(array,n);
 
     cout << "Arreglo ordenado de manera ascendente por algoritmo de merge sort:\n";
     array = merge_sort(array,n);
     print_array(array,n);
+
+    delete [] array;
 
     return 0;
 }
