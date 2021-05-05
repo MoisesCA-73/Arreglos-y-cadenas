@@ -1,3 +1,5 @@
+//Link del repositorio: https://github.com/MoisesCA-73/Arreglos-y-cadenas
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -17,27 +19,14 @@ void reverse_itr(int *arr, int n)
     }
 }
 
-//Revierte un arreglo de enteros de forma recursiva
-void rev_rec(int *arr, int n, int m)
+void reverse_rec(int *arr, int n, int m = 0)
 {
-    if (m/2 >= m-n)
+    if (n/2 <= n-m)     //comprueba si aun no llego a la mitad para terminar
     {
-        int aux = arr[m-n];
-        arr[m-n] = arr[n-1];
-        arr[n-1] = aux;
-        rev_rec(arr,n-1,m);
-    }
-}
-
-//Revierte un arreglo de forma recursiva
-void reverse_rec(int *arr, int n)
-{
-    if (n != 1)
-    {
-        int aux = arr[0];
-        arr[0] = arr[n-1];
-        arr[n-1] = aux;
-        rev_rec(arr,n-1,n);
+        int aux = arr[m];
+        arr[m] = arr[n-m-1];
+        arr[n-m-1] = aux;
+        reverse_rec(arr,n,m+1);    //swapea los numeros adyacentes
     }
 }
 
@@ -72,14 +61,20 @@ int main()
     asignar_randoms(array,n);
 
     cout << "Arreglo:\n";
+    cout << array[0] << endl;
+    cout << array[n-1] << endl;
     print_array(array,n);
 
     cout << "Arreglo invertido de forma iterativa:\n";
     reverse_itr(array,n);
+    cout << array[0] << endl;
+    cout << array[n-1] << endl;
     print_array(array,n);
 
     cout << "Invirtiendo el arreglo invertido de forma recursiva:\n";
     reverse_rec(array,n);
+    cout << array[0] << endl;
+    cout << array[n-1] << endl;
     print_array(array,n);
 
     return 0;
